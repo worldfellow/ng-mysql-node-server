@@ -1,6 +1,9 @@
-const Sequelize = require('sequelize');
-module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('users', {
+"use strict";
+
+const { STRING, INTEGER } = require("sequelize");
+
+module.exports = function (sequelize, DataTypes) {
+  var users = sequelize.define('users', {
     id: {
       autoIncrement: true,
       type: DataTypes.BIGINT.UNSIGNED,
@@ -15,6 +18,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(255),
       allowNull: true, //false, 
       unique: "users_email_unique"
+    },
+    role: {
+      type: DataTypes.STRING(255),
+      allowNull: true, //false, 
     },
     active_status: {
       type: DataTypes.BOOLEAN,
@@ -47,64 +54,38 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(255),
       allowNull: true, //false, 
     },
+    Leaves: {
+     type:DataTypes.JSON,
+     allowNull:true
+  },
     avatar: {
-      type: DataTypes.STRING(255),
-      allowNull: true
-    },
+    type: DataTypes.STRING(255),
+    allowNull: true
+  },
     lang: {
-      type: DataTypes.STRING(255),
-      allowNull: true, //false, 
-    },
+    type: DataTypes.STRING(255),
+    allowNull: true, //false, 
+  },
     last_login: {
-      type: DataTypes.DATE,
-      allowNull: true
-    },
+    type: DataTypes.DATE,
+    allowNull: true
+  },
     is_active: {
-      type: DataTypes.INTEGER,
-      allowNull: true, //false, 
-      defaultValue: 1
-    },
+    type: DataTypes.INTEGER,
+    allowNull: true, //false, 
+    defaultValue: 1
+  },
     created_by: {
-      type: DataTypes.STRING(255),
-      allowNull: true, //false, 
-    },
+    type: DataTypes.STRING(255),
+    allowNull: true, //false, 
+  },
     remember_token: {
-      type: DataTypes.STRING(100),
-      allowNull: true
-    }
-  //   ,
-  //   created_at: {
-  //     type: Sequelize.DATEONLY,
-  //  allowNull: true,
-  //  defaultValue: null
-  //   },
-  //   updated_at: {
-  //     type: Sequelize.DATEONLY,
-  //  allowNull: true,
-  //  defaultValue: null
-  //   }
-  }, {
-    sequelize,
-    tableName: 'users',
-    timestamps: true,
-    indexes: [
-      {
-        name: "PRIMARY",
-        unique: true,
-        using: "BTREE",
-        fields: [
-          { name: "id" },
-        ]
-      },
-      {
-        name: "users_email_unique",
-        unique: true,
-        using: "BTREE",
-        fields: [
-          { name: "email" },
-        ]
-      },
-    ]
+    type: DataTypes.STRING(100),
+    allowNull: true
+  }
+
   });
 
+
+return users;
 };

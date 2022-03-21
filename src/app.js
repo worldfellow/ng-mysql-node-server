@@ -25,7 +25,6 @@ const settingsController = require('./api/common/settings/settingsController');
 
 const SeedService = require('./api/seedService');
 const seedService = new SeedService();
-
 const app = express();
 const { port, root } = config.get('api');
 const db = require("./models");
@@ -76,7 +75,9 @@ app.use(`${root}/swagger`, (req, res, next) => {
 }, swaggerUi.serve, swaggerUi.setup(null, customSwaggerOptions));
 
 // seed data in case of empty data base
-//seedService.checkAndSeed();
+setTimeout(() => {
+  seedService.checkAndSeed()
+}, 500);
 
 // routes for common controllers
 app.use(`${root}/auth`, authController);

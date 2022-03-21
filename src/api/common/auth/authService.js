@@ -17,13 +17,12 @@ class AuthService {
 
   register(user) {
     const { email } = user;
-
     return this.userService.findByEmail(email)
       .then(existingUser => {
         if (existingUser) {
           throw new Error('User already exists');
         }
-
+        
         const { salt, passwordHash } = cipher.saltHashPassword(user.password);
         const newUser = {
           email: user.email,
@@ -37,7 +36,33 @@ class AuthService {
         return this.userService.addUser(newUser);
       })
       .then(response => {
-        if (response.result.ok === 1) {
+        if (response) {
+          return this.userService.findByEmail(email);
+        }
+      });
+  }
+  registerAdmin(user) {
+    const { email } = user;
+    return this.userService.findByEmail(email)
+      .then(existingUser => {
+        if (existingUser) {
+          throw new Error('User already exists');
+        }
+
+        const { salt, passwordHash } = cipher.saltHashPassword(user.password);
+        const newUser = {
+          email: user.email,
+          fullName: user.fullName,
+          role: 'admin',
+          branch:'default',
+          // age: 18,
+          salt,
+          passwordHash,
+        };
+        return this.userService.addUser(newUser);
+      })
+      .then(response => {
+        if (response) {
           return this.userService.findByEmail(email);
         }
       });

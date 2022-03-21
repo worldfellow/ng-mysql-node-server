@@ -14,7 +14,7 @@ const sequelize = new Sequelize(DB, USER, PASSWORD, {
   host: HOST,
   dialect: dialect,
   operatorsAliases: false,
-
+  logging:false,
   pool: {
     max: pool.max,
     min: pool.min,
