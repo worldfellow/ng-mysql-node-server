@@ -4,9 +4,10 @@
  * See LICENSE_SINGLE_APP / LICENSE_MULTI_APP in the 'docs' folder for license information on type of purchased license.
  */
 const models = require( '../../../models/index');
-class UserRepository {
+const BaseRepository = require('../../../db/baseRepository');
+class UserRepository extends BaseRepository{
   constructor() {
-   // super('users');
+    super('users');
   }
 
   findById(id) {
