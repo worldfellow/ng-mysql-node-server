@@ -1,18 +1,70 @@
-# Node.js Starter
+# Node.js Server
 
-# Features
+# Installation and usage
 
-- Express/MongoDB back-end
-- ngx-admin template with 100+ UI components
-- Only important features you need
-- Authentication using JWT tokens is implemented and integrated in both client and server side
-- Basic role management and ACL is in place
-- code quality under the hood - tslint is set up as part of Angular project settings, it simply wouldn't let you push typescript code with errors
-- backend solution layered architecture and projects segregation
-- MongoDB client for backend data access with the ability to easily replace it with other data access
-Swagger included for automatic API testing and documentation
-- winston is used for logging
-- node-config is used for configure application settings
-- nodemon is used for better experience while develop
-- Documentation is included
-- 6 months free updates
+- Create a folder in the root directry with name config
+- Create a file default.js inside it. (if using for prodcution then create production.js as well)
+- add the following information changing the configuration to your settings 
+- make sure that the database string is valid and database name exists
+
+```javascript
+module.exports = {
+
+  api: {
+    port: 3001,
+    root: '/api',
+  },
+
+  frontEnd: {
+    domain: 'http://localhost:4200',
+  },
+
+  path:{
+    FILE_LOCATION : '/temp/'
+  },
+
+  auth: {
+    jwt: {
+      accessTokenSecret: '0d7c5c5f-768c-4d98-8900-13aadaa21939',
+      refreshTokenSecret: '1a7v8c0l-391k-1f82-4492-tha3taa11324',
+      accessTokenLife: 3600,
+      refreshTokenLife: 2592000,
+    },
+    resetPassword: {
+      secret: '56gXxY{+D6/4m#kZ394j2=bT2eHqTAu>r8zAT>yEn:;TM#9*Vh',
+      ttl: 86400 * 1000, // 1 day
+      algorithm: 'aes256',
+      inputEncoding: 'utf8',
+      outputEncoding: 'hex',
+    },
+  },
+
+  mysqldb:{
+    HOST: "localhost",
+  USER: "root",
+  PASSWORD: "",
+  DB: "demo",
+  dialect: "mysql",
+  PORT:3306,
+  pool: {
+    max: 5,
+    min: 0,
+    acquire: 30000,
+    idle: 10000
+  }
+  },
+  logger: {
+    console: {
+      level: 'debug',
+    },
+    file: {
+      logDir: 'logs',
+      logFile: 'bundle_node.log',
+      level: 'debug',
+      maxsize: 1024 * 1024 * 10, // 10MB
+      maxFiles: 5,
+    },
+  },
+};
+
+```
